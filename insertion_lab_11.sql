@@ -1,4 +1,4 @@
-USE lab11;
+USE BD_Sales;
 
 -- Insertion de 10 enregistrements dans la table ProductTable
 INSERT INTO ProductTable (ProductName, Price)

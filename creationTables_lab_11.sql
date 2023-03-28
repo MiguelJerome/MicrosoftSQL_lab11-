@@ -1,10 +1,10 @@
 --- Creer la base donnee 
-IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'lab11') 
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'BD_Sales') 
 BEGIN
-    CREATE DATABASE lab11;
+    CREATE DATABASE BD_Sales;
 END
 
-USE lab11;
+USE BD_Sales;
 
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ProductTable' AND type = 'U')
 BEGIN
