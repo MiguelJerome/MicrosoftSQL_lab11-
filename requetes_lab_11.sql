@@ -64,18 +64,20 @@ GRANT INSERT ON [sales].[staffs] TO user_nom_test;
 GRANT INSERT ON [sales].[stores] TO user_nom_test;
 GO
 
-SET IDENTITY_INSERT production.products ON;
-ALTER LOGIN user_nom_test WITH PASSWORD = 'passwordTest123';
-
+SET IDENTITY_INSERT [production].[products] ON;
+GO
+SETUSER 'user_nom_test'
+GO
 INSERT INTO [production].[products] ([product_id], [product_name], [brand_id], [category_id], [model_year], [list_price])
 VALUES (400, 'Product 4', 2, 2, 2023, 40.00);
       
 
 -- b.	Donner le droit de selection a l'utilisateur
-SETUSER 
+SETUSER
 USE BD_Sales;
 GO
-GRANT SELECT ON DATABASE::BD_SALES TO user_nom_test;
+GRANT SELECT ON DATABASE::BD_SALES TO user_nom_test
+GO
 GRANT SELECT ON [production].[brands] TO user_nom_test;
 GRANT SELECT ON [production].[categories] TO user_nom_test;
 GRANT SELECT ON [production].[products] TO user_nom_test;
@@ -86,6 +88,8 @@ GRANT SELECT ON [sales].[orders] TO user_nom_test;
 GRANT SELECT ON [sales].[staffs] TO user_nom_test;
 GRANT SELECT ON [sales].[stores] TO user_nom_test;
 GO
+SETUSER 'user_nom_test'
+GO
 SELECT * FROM [production].[products] WHERE [product_id] = 400;
 
 -- c.	Enlever le droit d'insertion a l'utilisateur
@@ -93,6 +97,7 @@ SETUSER
 USE BD_Sales;
 GO
 REVOKE INSERT ON DATABASE::BD_SALES FROM user_nom_test;
+GO
 REVOKE INSERT ON [production].[brands] TO user_nom_test;
 REVOKE INSERT ON [production].[categories] TO user_nom_test;
 REVOKE INSERT ON [production].[products] TO user_nom_test;
@@ -103,6 +108,12 @@ REVOKE INSERT ON [sales].[orders] TO user_nom_test;
 REVOKE INSERT ON [sales].[staffs] TO user_nom_test;
 REVOKE INSERT ON [sales].[stores] TO user_nom_test;
 GO
+SET IDENTITY_INSERT [production].[products] ON;
+GO
+SETUSER 'user_nom_test'
+GO
+INSERT INTO [production].[products] ([product_id], [product_name], [brand_id], [category_id], [model_year], [list_price])
+VALUES (410, 'Product 410', 2, 2, 2023, 410.00);
 
 
 -- 2.	Creer une transaction permettant de supprimer les produits qui n'ont jamais ete commandes
